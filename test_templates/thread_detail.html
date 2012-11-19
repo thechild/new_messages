@@ -1,0 +1,18 @@
+{% include 'user_greeting.html' %}
+{% block content %}
+<p font-size="+1"><b>{{ thread.subject }}</b> by <font size="">{{ thread.creator.name }}</font></p>
+<p>Group: <a href="/user/{{ user.pk }}/group/{{ thread.group.pk }}/">{{ thread.group.non_blank_name }}</a></p>
+<hr/>
+{% for message in thread.messages %}
+<p><b>{{ message.sender }}:</b> {{ message.text }}</p>
+{% endfor %}
+{% if thread.messages.count == 0 %}
+<p> No messages </p>
+{% endif %}
+
+<form action="post/" method="post">
+	{% csrf_token %}
+	<input type="text" name="message_text"/>
+	<input type="submit" value="Send">
+</form>
+{% endblock %}

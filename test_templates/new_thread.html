@@ -1,0 +1,7 @@
+{% include 'user_greeting.html' %}
+<a href="/user/{{ user.pk}}/new_member/">+ Recipient</a>
+<form action="." method="post">
+	{% csrf_token %}	
+	{{ form.as_p }}
+	<input type="submit" value="Send"/>
+</form>

@@ -1,0 +1,14 @@
+{% include 'user_greeting.html' %}
+{% block content %}
+<h2> Group <b>{{ group.non_blank_name }}</b></h2>
+<p>Members: 
+{% for u in group.members.all %}
+	<a href="/user/{{ user.pk }}/user/{{ u.pk }}/">{{ u.name }}</a>, {% endfor %}</p>
+<hr>
+{% if group.threads.count == 0 %}
+This group has no active threads
+{% endif %}
+{% for thread in group.threads %}
+{% include 'thread_snippet.html' %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,19 @@
+I think the model is correct
+
+Now I need to start to create ways to interact with it
+
+I think I need the following views:
+	1) Create Users
+	2) Log in as a user (there must be an authentication library of some sort I can track down
+	3) View active threads (the default view)
+	4) View a specific thread, with reply options
+	4) Create a new thread
+	5) Reply to an active thread
+
+
+I also need to create ways to do these things in the admin site:
+	1) View & create users
+	2) View & create groups
+	3) View & create threads
+	4) View & create messages
+	5) View the above by user
