@@ -1,5 +1,4 @@
 <p><a href="/user/{{ user.pk }}/thread/{{ thread.pk }}/"><b>{{ thread.subject }}</b></a>
-	by {{ thread.creator }}
 	({{ thread.messages.count }} messages)
 	in {{ thread.group.non_blank_name }}<br/>
-{{ thread.messages.0.sender }} ({{ thread.messages.0.pub_date }}): {{ thread.messages.0.text }}</p>
+<b>{{ thread.messages.0.sender }}</b>: {{ thread.messages.0.text }}</p>
