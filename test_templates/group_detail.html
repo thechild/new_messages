@@ -4,6 +4,10 @@
 <p>Members: 
 {% for u in group.members.all %}
 	<a href="/user/{{ user.pk }}/user/{{ u.pk }}/">{{ u.name }}</a>, {% endfor %}</p>
+{% if related_groups.count > 0 %}
+    <p>Related Groups:
+        {% for g in related_groups %}<a href="/user/{{ user.pk }}/group/{{ g.pk }}/">{{ g.non_blank_name }}</a>, {% endfor %}</p>
+{% endif %}
 <hr>
 {% if group.threads.count == 0 %}
 This group has no active threads
