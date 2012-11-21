@@ -1,6 +1,11 @@
 {% include 'user_greeting.html' %}
 {% block content %}
-<h2> Group <b>{{ group.non_blank_name }}</b></h2>
+<form method="post" action="edit/">
+    {% csrf_token %}
+<p> Group [<b>{{ group.non_blank_name }}</b>]
+<block name="rename_form"><input type="text" name="group_name" value='{{ group.name }}'/>
+<input type="submit" value="Rename"/></block>
+</p></form>
 <p>Members: 
 {% for u in group.members.all %}
 	<a href="/user/{{ user.pk }}/user/{{ u.pk }}/">{{ u.name }}</a>, {% endfor %}</p>

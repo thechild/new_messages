@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^user/(\d+)/thread/(\d+)/$', 'Messages.views.view_thread_as_user', name='thread_detail'),
     url(r'^user/(\d+)/thread/(\d+)/post/$', 'Messages.views.new_message'),
     url(r'^user/(\d+)/group/(\d+)/$', 'Messages.views.view_group_as_user', name='group_detail'),
+    url(r'^user/(\d+)/group/(\d+)/edit/$', 'Messages.views.edit_group', name='edit_group'),
     url(r'^user/(\d+)/new/$', 'Messages.views.new_thread', name='new_thread'),
     url(r'^user/(\d+)/new_member/$', 'Messages.views.new_member'),
 
