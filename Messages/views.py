@@ -85,28 +85,35 @@ def new_member(request, user_id):
 
 # Return an existing or new group with the given members (including creator)
 def group_with_members(creator, members):
-	group = Group.objects.filter(members=creator)
-	for m in members:
-		group = group.filter(members=m)
-		if group.count() == 0:
-			break
+	
+	groups = Group.objects.filter(members=members).filter(members=creator)
+	group = []
 
-	if group.count() == 0:
+	for g in groups:
+		if g.members.count() == members.count() + 1: # find the one that's an exact match.  Should be a better DB way to do this...
+			group = g
+
+	if not group:
 		# couldn't find this exact group, so create one
 		group = Group()
-		group.creator = creator
 		group.save()
 		group.members.add(creator)
 		for m in members:
 			group.members.add(m)
 		group.save()
-	elif group.count() == 1:
-		group = group[0]
-	else:
-		print "we somehow got multiple groups with these members: %s" % (creator, members)
-		group = group[0]
 
 	return group
+
+def edit_group(request, user_id, group_id):
+	user = get_object_or_404(User, pk=user_id)
+	group = get_object_or_404(Group, pk=group_id)
+	if request.method == 'POST':
+		new_name = request.POST['group_name']
+		group.name = new_name
+		group.save()
+		return HttpResponseRedirect(reverse('group_detail', args=(user.pk, group.pk,)))
+	else:
+		return HttpResponseForbidden("You can't edit a group directly.")
 
 def new_thread(request, user_id):
 	user = get_object_or_404(User, pk=user_id)
@@ -116,7 +123,8 @@ def new_thread(request, user_id):
 		form = ThreadForm(user, request.POST)
 		if form.is_valid():
 			print 'form is valid'
-			members = [User.objects.get(pk=m) for m in form.cleaned_data['members']]
+			members = User.objects.filter(pk__in=form.cleaned_data['members'])
+			#members = [User.objects.get(pk=m) for m in form.cleaned_data['members']]
 			print members
 
 			group = group_with_members(user, members)
