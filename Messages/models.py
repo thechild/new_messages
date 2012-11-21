@@ -32,6 +32,9 @@ class Group(models.Model):
 	name = models.CharField(max_length=100, blank=True)
 	members = models.ManyToManyField(User)
 	
+	def user_has_access(self, user):
+		return self.members.filter(pk = user.pk).count() == 1
+
 	def non_blank_name(self):
 		if self.name == '':
 			return ', '.join(m.first_name for m in self.members.all())
@@ -56,6 +59,9 @@ class Thread(models.Model):
 	group = models.ForeignKey(Group) # A thread must be tied to a group
 	creation_date = models.DateTimeField('date created', auto_now_add=True, blank=True)
 
+	def user_has_access(self, user):
+		return self.group.user_has_access(user)
+
 	def members(self):
 		return self.group.members.all()
 
@@ -77,6 +83,9 @@ class Message(models.Model):
 	sender = models.ForeignKey('User')
 	pub_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
 	thread = models.ForeignKey('Thread') # A message must be tied to a thread
+
+	def user_has_access(self, user):
+		return self.thread.user_has_access(user)
 
 	def group(self):
 		return self.thread.group
