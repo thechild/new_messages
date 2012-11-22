@@ -1,7 +1,12 @@
 {% include 'user_greeting.html' %}
 {% block content %}
-{% for thread in user.threads_sorted %}
-{% include 'thread_snippet.html' %}
+Information about {{ other_user.name }}<br />
+<a href="mailto:{{ other_user.primary_email }}">{{ other_user.primary_email }}</a> {{ other_user.primary_phone }}
+<hr/>
+{% for group in shared_groups %}
+<p><b><a href="/user/{{ user.pk }}/group/{{ group.pk }}/">{{ group.non_blank_name }}</a></b>
+    {% for thread in group.threads_sorted %}
+    {% include 'thread_snippet.html' %}
+    {% endfor %}</p>
 {% endfor %}
-<a href="new/">+ New Thread</a>
 {% endblock %}

@@ -1,0 +1,7 @@
+{% include 'user_greeting.html' %}
+{% block content %}
+{% for thread in user.threads_sorted %}
+{% include 'thread_snippet.html' %}
+{% endfor %}
+<a href="new/">+ New Thread</a>
+{% endblock %}

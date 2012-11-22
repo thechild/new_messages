@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^user/(\d+)/group/(\d+)/edit/$', 'Messages.views.edit_group', name='edit_group'),
     url(r'^user/(\d+)/new/$', 'Messages.views.new_thread', name='new_thread'),
     url(r'^user/(\d+)/new_member/$', 'Messages.views.new_member'),
+    url(r'^user/(\d+)/user/(\d+)/$', 'Messages.views.view_user'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

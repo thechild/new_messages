@@ -29,7 +29,7 @@ class ThreadForm(forms.Form):
 
 def user_messages(request, user_id):
 	user = get_object_or_404(User, pk=user_id)
-	return render_to_response('user_detail.html', {'user': user}, context_instance=RequestContext(request))
+	return render_to_response('user_home.html', {'user': user}, context_instance=RequestContext(request))
 
 def view_thread_as_user(request, user_id, thread_id):
 	user = get_object_or_404(User, pk=user_id)
@@ -52,6 +52,13 @@ def view_group_as_user(request, user_id, group_id):
 		r_groups = r_groups.filter(members = m)
 
 	return render_to_response('group_detail.html', {'user': user, 'group': group, 'related_groups': r_groups},
+		context_instance=RequestContext(request))
+
+def view_user(request, user_id, other_user_id):
+	user = get_object_or_404(User, pk=user_id)
+	other_user = get_object_or_404(User, pk=other_user_id)
+	shared_groups = Group.objects.filter(members=user).filter(members=other_user)
+	return render_to_response('user_detail.html', {'user': user, 'other_user': other_user, 'shared_groups': shared_groups},
 		context_instance=RequestContext(request))
 
 ##########################
