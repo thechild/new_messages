@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from Messages.models import User, Group, Thread, Message
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 class UserForm(forms.ModelForm):
 	class Meta:
@@ -18,6 +20,9 @@ class ThreadForm(forms.Form):
 		self.fields['members'] = forms.MultipleChoiceField(
 			widget=forms.CheckboxSelectMultiple,
 			choices=[ (u.pk, u.name()) for u in users])
+
+		self.helper = FormHelper()
+		self.helper.add_input(Submit('submit', 'Send'))
 
 	members = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
 	subject = forms.CharField(max_length=100)

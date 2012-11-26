@@ -67,6 +67,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '/Users/cchild/Sites/test_messages/new_messages/static/',
 )
 
 # List of finder classes that know how to find static files in
@@ -76,6 +77,9 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_FAIL_SILENTLY = not DEBUG
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 's&amp;61&amp;-4$hp$=q*@ir9x8^4w#bh1m8e@&amp;fe1q@@mtk%ckt)4@p^'
@@ -118,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'Messages',
+    'crispy_forms',
     # Uncomment the next line to enable the admin:
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
