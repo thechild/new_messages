@@ -1,5 +1,6 @@
-{% include 'user_greeting.html' %}
+{% extends 'base.html' %}
 {% block content %}
+{% include 'user_greeting.html' %}
 Information about {{ other_user.name }}<br />
 <a href="mailto:{{ other_user.primary_email }}">{{ other_user.primary_email }}</a> {{ other_user.primary_phone }}
 <hr/>

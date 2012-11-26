@@ -1,7 +1,15 @@
-{% include 'user_greeting.html' %}
+{% extends 'base.html' %}
 {% block content %}
-{% for thread in user.threads_sorted %}
-{% include 'thread_snippet.html' %}
-{% endfor %}
+{% include 'user_greeting.html' %}
+<div class="row-fluid">
+    <div class="span10">
+        {% for thread in user.threads_sorted %}
+            {% include 'thread_snippet.html' %}
+        {% endfor %}
+    </div>
+    <div class="span2"> </div>
+</div>
+{% endblock %}
+{% block sidebar %}
 <a href="new/">+ New Thread</a>
 {% endblock %}

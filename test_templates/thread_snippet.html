@@ -1,4 +1,15 @@
-<p><a href="/user/{{ user.pk }}/thread/{{ thread.pk }}/"><b>{{ thread.subject }}</b></a>
-	({{ thread.messages.count }} messages)
-	in {{ thread.group.non_blank_name }}<br/>
-<b>{{ thread.messages.0.sender }}</b>: {{ thread.messages.0.text }}</p>
+<div class="well">
+    <div class='row-fluid'>
+        <div class='span6'>
+            <a href="/user/{{ user.pk }}/thread/{{ thread.pk }}/"><b>{{ thread.subject }}</b></a>
+        </div>
+        <div class='span3 offset1'>
+        	in {{ thread.group.non_blank_name }}<br/>
+        </div>
+    </div>
+    <div class='row-fluid'>
+        <div class='span10'>
+            <b>{{ thread.messages.0.sender }}</b>: {{ thread.messages.0.text }}
+        </div>
+    </div>
+</div>

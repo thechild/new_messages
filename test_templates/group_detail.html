@@ -1,10 +1,11 @@
-{% include 'user_greeting.html' %}
+{% extends 'base.html' %}
 {% block content %}
-<form method="post" action="edit/">
+{% include 'user_greeting.html' %}
+<form method="post" action="edit/" class="form-inline">
     {% csrf_token %}
 <p> Group [<b>{{ group.non_blank_name }}</b>]
 <block name="rename_form"><input type="text" name="group_name" value='{{ group.name }}'/>
-<input type="submit" value="Rename"/></block>
+<input type="submit" value="Rename" class="btn"/></block>
 </p></form>
 <p>Members: 
 {% for u in group.members.all %}

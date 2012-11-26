@@ -1,7 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
 {% include 'user_greeting.html' %}
 <a href="/user/{{ user.pk}}/new_member/">+ Recipient</a>
-<form action="." method="post">
+{% crispy form form.helper %}
+<!--<form action="." method="post">
 	{% csrf_token %}	
 	{{ form.as_p }}
 	<input type="submit" value="Send"/>
-</form>
+</form>-->
+{% endblock %}

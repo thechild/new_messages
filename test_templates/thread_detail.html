@@ -1,18 +1,35 @@
-{% include 'user_greeting.html' %}
+{% extends 'base.html' %}
 {% block content %}
-<p font-size="+1"><b>{{ thread.subject }}</b> by <font size="">{{ thread.creator.name }}</font></p>
-<p>Group: <a href="/user/{{ user.pk }}/group/{{ thread.group.pk }}/">{{ thread.group.non_blank_name }}</a></p>
+{% include 'user_greeting.html' %}
+<p class="lead"><strong>{{ thread.subject }}</strong><small> by {{ thread.creator.name }}</small></p>
+<p class="muted">Group: <a href="/user/{{ user.pk }}/group/{{ thread.group.pk }}/">{{ thread.group.non_blank_name }}</a></p>
 <hr/>
 {% for message in thread.messages %}
-<p><b>{{ message.sender }}:</b> {{ message.text }}</p>
+<div class="row-fluid">
+    <div class="span2"><strong>{{ message.sender }}:</strong></div>
+    <div class="span10">{{ message.text }}</div>
+</div>
 {% endfor %}
 {% if thread.messages.count == 0 %}
-<p> No messages </p>
+    <p> No messages </p>
 {% endif %}
 
-<form action="post/" method="post">
-	{% csrf_token %}
-	<input type="text" name="message_text" size="45" />
-	<input type="submit" value="Send">
-</form>
+<div class="row-fluid">
+    <div class="span2">
+        <p class="muted">{{ user.name }}:</p>
+    </div>
+    <div class="span10">
+        <form action="post/" method="post" class="form-inline">
+            {% csrf_token %}
+            <div class="input-append">
+               <input type="text" name="message_text" class="input-xlarge">
+        	   <input type="submit" class="btn btn-primary" value="Send">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<a href="/user/{{ user.pk }}/new/">+ New Thread</a>
 {% endblock %}
