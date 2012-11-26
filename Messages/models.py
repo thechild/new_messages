@@ -69,7 +69,7 @@ class Thread(models.Model):
 		return Message.objects.filter(thread__pk__exact=self.pk)
 
 	def newest_message_date(self):
-		return self.messages()[0].pub_date
+		return self.messages().order_by('-pub_date')[0].pub_date
 
 	def __unicode__(self):
 		return self.subject
@@ -97,7 +97,7 @@ class Message(models.Model):
 		return self.text
 
 	class Meta:
-		ordering = ('pub_date',)
+		ordering = ('pub_date',) # need to decide if this order is right...
 
 class ReadMessage(models.Model): # A ReadMessage is created when a user reads a message
 	message = models.ForeignKey('Message')
